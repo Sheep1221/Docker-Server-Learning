@@ -1,0 +1,16 @@
+body{
+    background-color: black;
+}
+label{
+    color: white;
+}
+
+h1{
+    color: gray;
+    font-size: 200%;
+}
+
+p{
+    color: white;
+    font-size: 100%;
+}

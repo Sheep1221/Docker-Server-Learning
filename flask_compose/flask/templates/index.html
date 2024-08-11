@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flask Input Output</title>
+    <link rel="stylesheet" href={{ url_for('static', filename='css/styles.css') }}>
 </head>
 <body>
     <h1>Input and Output with Flask</h1>
@@ -12,8 +13,8 @@
         <input type="text" id="user_input" name="user_input">
         <button type="submit">Submit</button>
     </form>
-    {% if user_input %}
-        <p>You entered: {{ user_input }}</p>
-    {% endif %}
+    <p>{% if user_input %}</p>
+    <p>You entered: {{ user_input }}</p>
+    <p>{% endif %}</p>
 </body>
 </html>
