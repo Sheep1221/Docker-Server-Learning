@@ -11,15 +11,8 @@ db = client.mydatabase # Use your database name
 collection = db.user_inputs # User your collection name
 
 mydb = client["yukai_test1"]
-mycol = mydb["myself"]
+mycol = mydb["PT_family"]
 
-
-# Sample data for test api
-items = [
-    {"id": 1, "name": "Item 1"},
-    {"id": 2, "name": "Item 2"},
-    {"id": 3, "name": "Item 3"}
-]
 
 @app.route("/")
 def hello_world():
@@ -48,23 +41,26 @@ def test_io():
 
 # test api
 
-## Get method
-@app.route('/test_api/<int:item_id>', methods=['GET'])
-def get_item(item_id):
-    item = next((tmp_item for tmp_item in items if tmp_item['id'] == item_id), None)
-    if item:
-        return jsonify(item)
-    return jsonify({"error":"item not found"}), 404
-
-
 ## Get for MongoDB
-@app.route('/test_api/<name>', methods=['GET'])
+@app.route('/PT_family/<name>', methods=['GET'])
 def get_item_by_name(name):
     item = mycol.find_one({"name": name}, {'_id': 0})
     if item:
         return jsonify(item)
     return jsonify({"error":"item not found"}), 404
 
+## Get all
+@app.route('/PT_family', methods=['GET'])
+def get_all_item():
+    items = list(mycol.find({}, {'_id': 0}))
+    return jsonify(items)
+
+## Add into MongoDB 
+@app.route('/PT_family', methods=['POST'])
+def add_item():
+    item = request.json
+    mycol.insert_one(item)
+    return jsonify({"message": "Item added successfully"}), 201
 
 if __name__ == "__main__":
     app.run(port=3333, host="0.0.0.0")
