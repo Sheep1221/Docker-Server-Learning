@@ -22,7 +22,7 @@ def hello_world():
 def admin_page():
     return "<h1>This is the Admin Page</h1>"
 
-# I/O and MongoDB
+# html & I/O & MongoDB
 @app.route('/testIO', methods=['GET', 'POST'])
 def test_io():
     if request.method == 'POST':
@@ -39,10 +39,15 @@ def test_io():
             return "Error: 'user_input' not found in form data", 400
     return render_template('index.html', user_input=None)
 
+# PT_family main page
+@app.route('/PT_family', methods=['GET', 'POST'])
+def pt_main_page():
+    return render_template('pt_main.html')
+
 # test api
 
 ## Get for MongoDB
-@app.route('/PT_family/<name>', methods=['GET'])
+@app.route('/PT_family/api/<name>', methods=['GET'])
 def get_item_by_name(name):
     item = mycol.find_one({"name": name}, {'_id': 0})
     if item:
@@ -50,13 +55,13 @@ def get_item_by_name(name):
     return jsonify({"error":"item not found"}), 404
 
 ## Get all
-@app.route('/PT_family', methods=['GET'])
+@app.route('/PT_family/api', methods=['GET'])
 def get_all_item():
-    items = list(mycol.find({}, {'_id': 0}))
+    items = list(mycol.find({}, {'_id': 0})) # json not able to show id
     return jsonify(items)
 
 ## Add into MongoDB 
-@app.route('/PT_family', methods=['POST'])
+@app.route('/PT_family/api', methods=['POST'])
 def add_item():
     item = request.json
     mycol.insert_one(item)
