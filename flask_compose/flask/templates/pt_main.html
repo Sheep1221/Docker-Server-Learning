@@ -1,8 +1,7 @@
-<!DOCTYPE html>
 <html lang="en-US">
 
     <head>
-        <title>PT family</title>
+        <title>{% block title %}PT family{% endblock %}</title>
         <link rel="stylesheet" href="../static/css/pt.css">
     </head>
 
@@ -10,18 +9,27 @@
         <header>
             <h1>Welcome to PT family</h1>
         </header>
-            <nav>
-                <ul>
-                    <li><a href = "/PT_family/Puntang">Puntang</a></li>
-                    <li><a href = "/PT_family/Puntao">Puntao</a></li>
-                    <li><a href = "/PT_family/Pontan">Pontan</a></li>
-                </ul>
-            </nav>
-            <section>
-                <h2>Hello from PT family</h2>
-                <p>This is the main page for PT family</p>
-                <img src="../static/images/PT_family.jpg" style="width: 50%; height: auto;" alt="PT_family">
+            
+        <nav>
+            <ul>
+                <li><a href = "/PT_family">Main page</a></li>
+                <li><a href = "/PT_family/pt_video">Puton video</a></li>
+                <li><a href = "/PT_family/Puntang">Puntang</a></li>
+                <li><a href = "/PT_family/Puntao">Puntao</a></li>
+                <li><a href = "/PT_family/Pontan">Pontan</a></li>
+                <li><a href = "/PT_family/Pingtai">Pingtai</a></li>
+                <li><a href = "/PT_family/Puteng">Puteng</a></li>
+                <li><a href = "/PT_family/Pangtuo">Pangtuo</a></li>
+                <li><a href = "/PT_family/Little_Puntang">Little_Puntang</a></li>
+            </ul>
+        </nav>
+        {% block content %}
+        <section>
+            <h2>Hello from PT family</h2>
+            <p>This is the main page for PT family</p>
+            <img src="../static/images/PT_family.jpg" style="width: 50%; height: auto;" alt="PT_family">
 
-            </section>
+        </section>
+        {% endblock %}
     </body>
 </html>

@@ -2,7 +2,7 @@
     box-sizing: border-box;
   }
 
-  body, html {
+body, html {
     margin: 0;
     height: 100%;
 }
@@ -17,17 +17,26 @@ header{
 nav {
     background-color : #ded3a5;
     float: left;
-    width: 15%;
-    padding: 20px;
-    font-size: 15px;
-    height: 100%;
+    width: 200px;
+    padding-top: 2%;
+    padding-left: 0%;
+    font-size: 20px;
+    height: 105%;
   }
 
 section {
-    float: right;
-    width: 85%;
-    padding: 20px;
+    padding-top: 0px;
+    padding-left: 220px;
     height: 100%;
+    
+
+    h2 {
+        font-size: 28px;
+    }
+
+    p {
+        font-size: 18px;
+    }
 }
 
 body{

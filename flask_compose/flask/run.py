@@ -39,12 +39,27 @@ def test_io():
             return "Error: 'user_input' not found in form data", 400
     return render_template('index.html', user_input=None)
 
-# PT_family main page
+# PT_family
+
+## main page
 @app.route('/PT_family', methods=['GET', 'POST'])
 def pt_main_page():
     return render_template('pt_main.html')
 
-# test api
+# page for video
+@app.route('/PT_family/pt_video')
+def pt_video():
+    return render_template('pt_video.html')
+
+# introduce for each pig
+@app.route('/PT_family/<name>', methods=['GET'])
+def Puntang(name):
+    item = mycol.find_one({"name": name}, {'_id': 0})
+    if item:
+        return render_template('pt_pigs.html', name=name, item=item)
+    return render_template('pt_pigs.html', name=None, item=None)
+
+# api
 
 ## Get for MongoDB
 @app.route('/PT_family/api/<name>', methods=['GET'])
@@ -66,6 +81,15 @@ def add_item():
     item = request.json
     mycol.insert_one(item)
     return jsonify({"message": "Item added successfully"}), 201
+
+## Delete from MongoDB
+@app.route('/PT_family/api/<name>', methods=['DELETE'])
+def Delete_item(name):
+    result = mycol.delete_one({"name": name})
+    if result.deleted_count == 0:
+        return jsonify({"message": "<name> not found"}), 404
+    else:
+        return jsonify({"message": "<name> deleted successfully"}), 201
 
 if __name__ == "__main__":
     app.run(port=3333, host="0.0.0.0")
