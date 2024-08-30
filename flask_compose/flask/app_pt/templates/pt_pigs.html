@@ -6,8 +6,14 @@
     <h1>{{name}}</h1>
     <h1>{% endif %}</h1>
     
-    <p>{% if item %}</p>
-    <p>{{item | tojson(indent=None)}}</p>
-    <p>{% endif %}</p>
+    <table  border="1">
+        {% for key, value in item.items() %}
+            <tr>
+                <td>{{ key }}</td>
+                <td>{{ value }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
 </section>
 {% endblock %}

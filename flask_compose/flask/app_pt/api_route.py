@@ -3,7 +3,7 @@ from flask import jsonify
 def init_api_routes(app):
     mycol = app.mycol
     
-    ## Get for MongoDB
+    ## Get one
     @app.route('/PT_family/api/<name>', methods=['GET'])
     def get_item_by_name(name):
         item = mycol.find_one({"name": name}, {'_id': 0})
