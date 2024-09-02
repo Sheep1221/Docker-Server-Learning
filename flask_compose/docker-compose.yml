@@ -2,8 +2,8 @@ version: '3.8'
 
 services:
   flask-app:
-    build:
-      context: ./flask
+    build: ./flask
+    container_name: flask_app
     ports:
       - "3000:3333"
     volumes:
@@ -14,7 +14,18 @@ services:
     links:
       - mongodb
     networks: #if not set, use default
-      - app-network 
+      - app-network
+      - webnet 
+
+  nginx:
+    build: ./nginx
+    container_name: nginx_proxy
+    ports:
+      - "8000:80"
+    depends_on: #tell nginx should start after flask
+      - flask-app
+    networks:
+      - webnet
 
   mongodb:
     hostname: mongodb
@@ -29,4 +40,6 @@ services:
 
 networks: # if not set, use default
   app-network:
+    driver: bridge
+  webnet:
     driver: bridge
