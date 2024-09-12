@@ -1,9 +1,9 @@
 version: '3.8'
 
 services:
-  flask-app:
+  flask-app1:
     build: ./flask
-    container_name: flask_app
+    container_name: flask_app_1
     ports:
       - "3000:3333"
     volumes:
@@ -17,13 +17,47 @@ services:
       - app-network
       - webnet 
 
+  flask-app2:
+    build: ./flask
+    container_name: flask_app_2
+    ports:
+      - "4000:3333"
+    volumes:
+      - ./flask:/app
+    environment:
+      - FLASK_ENV=development
+      - MONGO_URI=mongodb://mongodb:27017/mydatabase
+    links:
+      - mongodb
+    networks: #if not set, use default
+      - app-network
+      - webnet 
+  
+  flask-app3:
+    build: ./flask
+    container_name: flask_app_3
+    ports:
+      - "5000:3333"
+    volumes:
+      - ./flask:/app
+    environment:
+      - FLASK_ENV=development
+      - MONGO_URI=mongodb://mongodb:27017/mydatabase
+    links:
+      - mongodb
+    networks: #if not set, use default
+      - app-network
+      - webnet 
+  
   nginx:
     build: ./nginx
     container_name: nginx_proxy
     ports:
       - "8000:80"
     depends_on: #tell nginx should start after flask
-      - flask-app
+      - flask-app1
+      - flask-app2
+      - flask-app3
     networks:
       - webnet
 
